@@ -29,7 +29,7 @@ const Formulario = ({ alertCustom }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3001/automacao/markdown/config"
+          "http://localhost:4607/automacao/markdown/config"
         );
         const { dados, login } = response.data || {};
         setFormData({
@@ -82,7 +82,7 @@ const Formulario = ({ alertCustom }) => {
     };
 
     try {
-      await axios.put("http://localhost:3001/automacao/markdown/config", {
+      await axios.put("http://localhost:4607/automacao/markdown/config", {
         data: updatedData,
       });
       alertCustom("Dados atualizados com sucesso!"); // Alerta de sucesso

@@ -18,7 +18,7 @@ const PromptForm = ({ alertCustom }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3001/automacao/IA/config"
+          "http://localhost:4607/automacao/IA/config"
         );
         const { iaKey, prompt } = response.data || {};
         setFormData({ apiKey: iaKey || "", prompt: prompt || "" });
@@ -50,7 +50,7 @@ const PromptForm = ({ alertCustom }) => {
         prompt: formData.prompt,
       };
 
-      await axios.put(`http://localhost:3001/automacao/IA/config`, {
+      await axios.put(`http://localhost:4607/automacao/IA/config`, {
         data: updatedData,
       });
 

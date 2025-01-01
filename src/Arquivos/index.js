@@ -26,8 +26,8 @@ const DownloadList = ({ alertCustom, setReload }) => {
   const fetchArquivos = async () => {
     try {
       const [arquivosResponse, templatesResponse] = await Promise.all([
-        axios.get("http://localhost:3001/documentos/arquivos"),
-        axios.get("http://localhost:3001/documentos/arquivos-template"),
+        axios.get("http://localhost:4607/documentos/arquivos"),
+        axios.get("http://localhost:4607/documentos/arquivos-template"),
       ]);
 
       if (arquivosResponse) {
@@ -65,7 +65,7 @@ const DownloadList = ({ alertCustom, setReload }) => {
   const handleDownload = (file, pasta) => {
     const link = document.createElement("a");
     link.target = "_blank";
-    link.href = `http://localhost:3001/documentos/${pasta}/${file}`;
+    link.href = `http://localhost:4607/documentos/${pasta}/${file}`;
     link.download = true;
     link.click();
   };
@@ -74,7 +74,7 @@ const DownloadList = ({ alertCustom, setReload }) => {
   const handleDelete = async (pasta, file, fileId) => {
     try {
       // Chama o endpoint para excluir o arquivo
-      await axios.delete(`http://localhost:3001/documentos/${pasta}/${file}`);
+      await axios.delete(`http://localhost:4607/documentos/${pasta}/${file}`);
 
       // Após excluir, removemos o arquivo da lista
       setArquivos((prevArquivos) =>

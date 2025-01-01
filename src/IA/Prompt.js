@@ -37,7 +37,7 @@ const ConversationInterface = () => {
     try {
       // Fazendo a requisição POST com axios
       const response = await axios.post(
-        "http://localhost:3001/automacao/IA/interact",
+        "http://localhost:4607/automacao/IA/interact",
         {
           pergunta: input, // Envia a pergunta
         }
