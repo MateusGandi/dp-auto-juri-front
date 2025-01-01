@@ -30,7 +30,7 @@ services:
     container_name: dp-auto-juri
     restart: unless-stopped
     ports:
-      - "4602:4602"
+      - "4607:4607"
     environment:
       NODE_ENV: production
 
