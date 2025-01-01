@@ -1,0 +1,42 @@
+version: "3.3"
+
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    restart: always
+    ports:
+      - "4501:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: pwadmin
+      NODE_ENV: production
+    volumes:
+      - ./mongo-data:/data/db
+
+  ab-pipefun-db-connector:
+    image: ../ab-pipefun-db-connector
+    container_name: api-db-connector
+    restart: unless-stopped
+    ports:
+      - 4601:4601
+    environment:
+      NODE_ENV: production
+
+  api-auto-juri:
+    image: ../dp-auto-juri
+    container_name: dp-auto-juri
+    restart: unless-stopped
+    ports:
+      - 4602:4602
+    environment:
+      NODE_ENV: production
+
+  auto-juri-front:
+    image: ../dp-auto-juri-front
+    container_name: dp-auto-juri-front
+    restart: unless-stopped
+    ports:
+      - 4603:4603
+    environment:
+      NODE_ENV: production

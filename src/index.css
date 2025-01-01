@@ -1,0 +1,37 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.modal-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.show-box {
+  border-radius: 10px !important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  padding: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+} /* Adicionar no seu arquivo de estilos CSS */
+.swal2-popup-custom {
+  border-radius: 10px; /* Bordas arredondadas */
+  padding: 20px; /* Padding interno */
+}
+
+.swal2-confirm-btn {
+  background-color: #3f51b5; /* Cor do botão */
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+}
