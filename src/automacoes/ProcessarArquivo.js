@@ -32,14 +32,14 @@ export const ProcessarArquivo = ({ alertCustom }) => {
 
     try {
       const response = await axios.get(
-        `http://srv488264.hstgr.cloud/api/autojuri/automacao/arquivo/${processNumber}`
+        `https://srv488264.hstgr.cloud/api/autojuri/automacao/arquivo/${processNumber}`
       );
       console.log(response.data);
       const { arquivo, clausulasFinais } = response.data;
 
       // URL do arquivo para download
       setFileUrl(
-        `http://srv488264.hstgr.cloud/api/autojuri/documentos/arquivos/${arquivo}`
+        `https://srv488264.hstgr.cloud/api/autojuri/documentos/arquivos/${arquivo}`
       );
 
       // Ajustando as cláusulas finais para exibição

@@ -29,7 +29,7 @@ const Formulario = ({ alertCustom }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://srv488264.hstgr.cloud/api/autojuri/automacao/markdown/config"
+          "https://srv488264.hstgr.cloud/api/autojuri/automacao/markdown/config"
         );
         const { dados, login } = response.data || {};
         setFormData({
@@ -83,7 +83,7 @@ const Formulario = ({ alertCustom }) => {
 
     try {
       await axios.put(
-        "http://srv488264.hstgr.cloud/api/autojuri/automacao/markdown/config",
+        "https://srv488264.hstgr.cloud/api/autojuri/automacao/markdown/config",
         {
           data: updatedData,
         }

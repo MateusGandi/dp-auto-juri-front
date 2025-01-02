@@ -27,10 +27,10 @@ const DownloadList = ({ alertCustom, setReload }) => {
     try {
       const [arquivosResponse, templatesResponse] = await Promise.all([
         axios.get(
-          "http://srv488264.hstgr.cloud/api/autojuri/documentos/arquivos"
+          "https://srv488264.hstgr.cloud/api/autojuri/documentos/arquivos"
         ),
         axios.get(
-          "http://srv488264.hstgr.cloud/api/autojuri/documentos/arquivos-template"
+          "https://srv488264.hstgr.cloud/api/autojuri/documentos/arquivos-template"
         ),
       ]);
 
@@ -69,7 +69,7 @@ const DownloadList = ({ alertCustom, setReload }) => {
   const handleDownload = (file, pasta) => {
     const link = document.createElement("a");
     link.target = "_blank";
-    link.href = `http://srv488264.hstgr.cloud/api/autojuri/documentos/${pasta}/${file}`;
+    link.href = `https://srv488264.hstgr.cloud/api/autojuri/documentos/${pasta}/${file}`;
     link.download = true;
     link.click();
   };
@@ -79,7 +79,7 @@ const DownloadList = ({ alertCustom, setReload }) => {
     try {
       // Chama o endpoint para excluir o arquivo
       await axios.delete(
-        `http://srv488264.hstgr.cloud/api/autojuri/documentos/${pasta}/${file}`
+        `https://srv488264.hstgr.cloud/api/autojuri/documentos/${pasta}/${file}`
       );
 
       // Após excluir, removemos o arquivo da lista

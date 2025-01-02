@@ -18,7 +18,7 @@ const PromptForm = ({ alertCustom }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://srv488264.hstgr.cloud/api/autojuri/automacao/IA/config"
+          "https://srv488264.hstgr.cloud/api/autojuri/automacao/IA/config"
         );
         const { iaKey, prompt } = response.data || {};
         setFormData({ apiKey: iaKey || "", prompt: prompt || "" });
@@ -51,7 +51,7 @@ const PromptForm = ({ alertCustom }) => {
       };
 
       await axios.put(
-        `http://srv488264.hstgr.cloud/api/autojuri/automacao/IA/config`,
+        `https://srv488264.hstgr.cloud/api/autojuri/automacao/IA/config`,
         {
           data: updatedData,
         }

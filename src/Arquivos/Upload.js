@@ -42,7 +42,7 @@ export function UploadArquivo() {
 
     try {
       const response = await axios.post(
-        `http://srv488264.hstgr.cloud/api/autojuri/template/upload-document`,
+        `https://srv488264.hstgr.cloud/api/autojuri/template/upload-document`,
         formData
       );
 
