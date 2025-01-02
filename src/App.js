@@ -160,7 +160,7 @@ function App() {
           </Grid>
 
           {/* Botões */}
-          <Grid item size={3}>
+          <Grid item size={{ xs: 12, md: 4 }}>
             <Button
               variant="outlined"
               fullWidth
@@ -176,7 +176,7 @@ function App() {
               Interagir com IA
             </Button>
           </Grid>
-          <Grid item size={3}>
+          <Grid item size={{ xs: 12, md: 4 }}>
             <Button
               fullWidth
               variant="contained"
@@ -198,6 +198,7 @@ function App() {
         open={openSettings}
         onClose={() => setOpenSettings(false)}
         maxWidth="lg"
+        fullScreen={window.innerWidth <= 600}
         fullWidth
       >
         <DialogTitle className="modal-title">
@@ -225,6 +226,7 @@ function App() {
         open={openIA}
         onClose={() => setOpenIA(false)}
         maxWidth="lg"
+        fullScreen={window.innerWidth <= 600}
         fullWidth
       >
         <DialogTitle className="modal-title">
@@ -242,6 +244,7 @@ function App() {
         open={openUpload}
         onClose={() => setOpenUpload(false)}
         maxWidth="lg"
+        fullScreen={window.innerWidth <= 600}
         fullWidth
       >
         <DialogTitle className="modal-title">
