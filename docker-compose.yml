@@ -34,12 +34,12 @@ services:
     environment:
       NODE_ENV: production
 
-  auto-juri-front:
-    build:
-      context: ../dp-auto-juri-front
-    container_name: dp-auto-juri-front
-    restart: unless-stopped
-    ports:
-      - "4603:4603"
-    environment:
-      NODE_ENV: production
+  # auto-juri-front:
+  #   build:
+  #     context: ../dp-auto-juri-front
+  #   container_name: dp-auto-juri-front
+  #   restart: unless-stopped
+  #   ports:
+  #     - "4603:4603"
+  #   environment:
+  #     NODE_ENV: production
