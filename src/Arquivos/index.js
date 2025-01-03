@@ -184,7 +184,7 @@ const DownloadList = ({ alertCustom, setReload }) => {
         </List>
       </Grid>
       <Grid size={12}>
-        <UploadArquivo />{" "}
+        <UploadArquivo alertCustom={alertCustom} />{" "}
       </Grid>
     </Grid>
   );

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import {
   Box,
-  Card,
-  CardContent,
   Typography,
   Dialog,
   DialogActions,
@@ -10,30 +8,56 @@ import {
   DialogTitle,
   IconButton,
   Button,
-  CardActionArea,
-  Grid2 as Grid,
+  Grid,
 } from "@mui/material";
 import {
-  CloudUpload as UploadIcon,
   Close as CloseIcon,
   Add as AddIcon,
+  CloudUpload as UploadIcon,
 } from "@mui/icons-material";
 import axios from "axios";
 
-export function UploadArquivo() {
+export function UploadArquivo({ alertCustom }) {
   const [arquivo, setArquivo] = useState(null);
-  const [status, setStatus] = useState("");
   const [open, setOpen] = useState(false);
+
+  const validateFile = (file) => {
+    return (
+      file.type ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    );
+  };
 
   const handleFileChange = (event) => {
     if (event.target.files && event.target.files[0]) {
-      setArquivo(event.target.files[0]);
+      const file = event.target.files[0];
+      if (validateFile(file)) {
+        setArquivo(file);
+      } else {
+        alertCustom("Por favor, envie apenas arquivos .docx (Word)");
+      }
     }
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    if (file) {
+      if (validateFile(file)) {
+        setArquivo(file);
+      } else {
+        alertCustom("Por favor, envie apenas arquivos .docx.");
+      }
+    }
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
   };
 
   const handleUpload = async () => {
     if (!arquivo) {
-      setStatus("Selecione um arquivo");
+      alertCustom("Selecione um arquivo.");
       return;
     }
 
@@ -47,14 +71,14 @@ export function UploadArquivo() {
       );
 
       if (response.data) {
-        setStatus("Arquivo enviado com sucesso!");
+        alertCustom("Arquivo enviado com sucesso!");
         setArquivo(null); // Zera o arquivo após envio
         setOpen(false); // Fecha o diálogo
       } else {
-        setStatus("Erro ao enviar arquivo");
+        alertCustom("Erro ao enviar arquivo.");
       }
     } catch (error) {
-      setStatus("Erro ao enviar arquivo");
+      alertCustom("Erro ao enviar arquivo.");
     }
   };
 
@@ -64,11 +88,11 @@ export function UploadArquivo() {
 
   const handleClose = () => {
     setOpen(false); // Fecha o diálogo
-    setStatus(""); // Limpa o status
+    setArquivo(null); // Reseta o arquivo selecionado
   };
 
   return (
-    <Grid size={12} sx={{ textAlign: "center" }}>
+    <Grid container justifyContent="center">
       <Button
         disableElevation
         variant="contained"
@@ -80,7 +104,6 @@ export function UploadArquivo() {
         Novo Upload
       </Button>
 
-      {/* Diálogo para upload */}
       <Dialog
         className="modal"
         open={open}
@@ -88,51 +111,66 @@ export function UploadArquivo() {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>
+        <DialogTitle className="modal-title">
           Upload de Arquivo
-          <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            sx={{ position: "absolute", right: 8, top: 8 }}
-          >
+          <IconButton aria-label="close" onClick={handleClose}>
             <CloseIcon />
           </IconButton>
         </DialogTitle>
         <DialogContent>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <Box
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: 2,
+              border: "2px dashed #ccc",
+              borderRadius: 2,
+              textAlign: "center",
+              gap: 2,
+              marginBottom: 2,
+            }}
+          >
+            <UploadIcon fontSize="large" />
+            <Typography>
+              Arraste e solte um arquivo .docx aqui ou clique no botão abaixo.
+            </Typography>
             <Button
               variant="contained"
+              disableElevation
               component="label"
-              sx={{ marginBottom: 2 }}
+              sx={{
+                marginTop: 2,
+                background: "transparent",
+                color: "GrayText",
+              }}
             >
               Selecionar Arquivo
-              <input type="file" hidden onChange={handleFileChange} />
+              <input
+                type="file"
+                hidden
+                accept=".docx"
+                onChange={handleFileChange}
+              />
             </Button>
-
-            {arquivo && (
-              <Typography variant="body2">
-                Arquivo selecionado: <strong>{arquivo.name}</strong>
-              </Typography>
-            )}
-
-            {status && (
-              <Typography
-                variant="body2"
-                color={status.includes("Erro") ? "error" : "primary"}
-              >
-                {status}
-              </Typography>
-            )}
           </Box>
+
+          {arquivo && (
+            <Typography variant="body2">
+              Arquivo selecionado: <strong>{arquivo.name}</strong>
+            </Typography>
+          )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary">
-            Cancelar
-          </Button>
           <Button
             onClick={handleUpload}
             variant="contained"
             color="primary"
+            disableElevation
+            sx={{ borderRadius: "50px" }}
             disabled={!arquivo}
           >
             Enviar

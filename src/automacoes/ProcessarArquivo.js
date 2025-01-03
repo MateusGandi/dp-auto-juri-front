@@ -82,7 +82,7 @@ export const ProcessarArquivo = ({ alertCustom }) => {
         <Grid size={12}>
           <Moldura>
             <Grid container spacing={2}>
-              <Grid size={6}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 {" "}
                 <TextField
                   label="Número do Processo"
@@ -94,7 +94,7 @@ export const ProcessarArquivo = ({ alertCustom }) => {
                 />
               </Grid>
               <Grid
-                size={6}
+                size={{ md: 6, xs: 12 }}
                 sx={{
                   display: "flex",
                   alignItems: "center",
@@ -107,7 +107,11 @@ export const ProcessarArquivo = ({ alertCustom }) => {
                   disableElevation
                   onClick={handleDownloadFile}
                   disabled={loading || !processNumber}
-                  sx={{ ml: 1, borderRadius: "50px" }}
+                  sx={{
+                    ml: 1,
+                    borderRadius: "50px",
+                    width: { xs: "100%", md: "auto" },
+                  }}
                   endIcon={
                     loading ? (
                       <CircularProgress size={18} color="GrayText" />
@@ -192,7 +196,7 @@ export const ProcessarArquivo = ({ alertCustom }) => {
             </Moldura>
           )}
         </Grid>
-        <Grid size={6}>
+        <Grid size={{ md: 6, xs: 12 }}>
           {" "}
           <Moldura>
             <ArquivosList alertCustom={alertCustom} setReload={setReload} />

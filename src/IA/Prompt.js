@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Box,
   TextField,
@@ -9,20 +9,26 @@ import {
   DialogActions,
 } from "@mui/material";
 import { Send as SendIcon } from "@mui/icons-material";
-import { AutoAwesome as IAIcon } from "@mui/icons-material"; // Certifique-se de que esse é o ícone correto
-import axios from "axios"; // Importando o axios
+import { AutoAwesome as IAIcon } from "@mui/icons-material";
+import axios from "axios";
 
 const ConversationInterface = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // Ref para rolagem automática
+  const messagesEndRef = useRef(null);
+
+  // Ref para focar no campo de entrada
+  const inputRef = useRef(null);
+
   const handleInputChange = (event) => {
     setInput(event.target.value);
   };
 
   const handleSendMessage = async () => {
-    if (input.trim() === "") return; // Não envia se o input estiver vazio
+    if (input.trim() === "") return;
 
     // Adicionando a mensagem do usuário
     const newMessage = {
@@ -35,11 +41,10 @@ const ConversationInterface = () => {
     setInput(""); // Limpa o campo de input
 
     try {
-      // Fazendo a requisição POST com axios
       const response = await axios.post(
         "https://srv488264.hstgr.cloud/api/autojuri/automacao/IA/interact",
         {
-          pergunta: input, // Envia a pergunta
+          pergunta: input,
         }
       );
 
@@ -70,16 +75,30 @@ const ConversationInterface = () => {
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && !loading) {
       handleSendMessage();
-      event.preventDefault(); // Previne quebra de linha no TextField
+      event.preventDefault();
     }
   };
 
+  // Função para rolar para o final do chat
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Efeito para rolar automaticamente quando as mensagens mudarem
+  useEffect(() => {
+    scrollToBottom();
+    if (!loading && inputRef.current) {
+      inputRef.current.focus(); // Foca no campo de entrada após enviar a mensagem
+    }
+  }, [messages, loading]);
+
   const renderAIResponse = (aiResponse) => {
-    // Substitui padrões de formatação Markdown simples
     const formattedResponse = aiResponse
-      .replace(/\*\*(.*?)\*\*/g, (match, text) => `<b>${text}</b>`) // Negrito
-      .replace(/\*(.*?)\*/g, (match, text) => `<i>${text}</i>`) // Itálico
-      .replace(/\n/g, "<br />"); // Quebras de linha
+      .replace(/\*\*(.*?)\*\*/g, (match, text) => `<b>${text}</b>`)
+      .replace(/\*(.*?)\*/g, (match, text) => `<i>${text}</i>`)
+      .replace(/\n/g, "<br />");
 
     return (
       <Typography
@@ -142,6 +161,8 @@ const ConversationInterface = () => {
               </Box>
             </Box>
           ))}
+          {/* Ref para rolagem automática */}
+          <div ref={messagesEndRef} />
         </Box>
       </DialogContent>
       <DialogActions>
@@ -159,8 +180,9 @@ const ConversationInterface = () => {
             fullWidth
             value={input}
             onChange={handleInputChange}
-            onKeyPress={handleKeyPress} // Captura a tecla Enter
+            onKeyPress={handleKeyPress}
             disabled={loading}
+            inputRef={inputRef} // Ref para o campo de entrada
             sx={{
               "& .MuiOutlinedInput-root": {
                 background: "rgba(0,0,0,0.05)",
