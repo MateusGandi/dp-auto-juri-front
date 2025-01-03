@@ -209,11 +209,11 @@ function App() {
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
-            <Grid size={6}>
+            <Grid size={{ md: 6, xs: 12 }}>
               {" "}
               <Formulario alertCustom={alertCustom} />
             </Grid>
-            <Grid size={6}>
+            <Grid size={{ md: 6, xs: 12 }}>
               {" "}
               <IAConfig alertCustom={alertCustom} />
             </Grid>
