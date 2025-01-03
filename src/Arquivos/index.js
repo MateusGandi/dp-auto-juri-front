@@ -70,7 +70,7 @@ const DownloadList = ({ alertCustom, setReload }) => {
     const link = document.createElement("a");
     link.target = "_blank";
     link.href = `https://srv488264.hstgr.cloud/api/autojuri/documentos/${pasta}/${file}`;
-    link.download = true;
+    link.download = file;
     link.click();
   };
 
